@@ -74,4 +74,5 @@ var correctAnswers = [
     [[false, false, true, false], [true, false, false, false], [true, false, false, false], [false, false, false, true]]
 ];
 
-var ec = new educationCourse('Universe', 3, numOfQuestions, topicNames, questionTexts, answersTexts, correctAnswers);
+var educCourse = new educationCourse('Universe', 3, numOfQuestions, topicNames, questionTexts, answersTexts, correctAnswers);
+export {educCourse as ec};

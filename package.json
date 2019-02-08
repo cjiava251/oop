@@ -1,0 +1,22 @@
+{
+  "name": "p1",
+  "version": "1.0.0",
+  "description": "",
+  "main": "task1.js",
+  "scripts": {
+    "test": "mocha"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/cjiava251/oop.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/cjiava251/oop/issues"
+  },
+  "homepage": "https://github.com/cjiava251/oop#readme",
+  "devDependencies": {
+    "expect": "^24.1.0"
+  }
+}
