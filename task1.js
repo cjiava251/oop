@@ -1,76 +1,107 @@
 class Answer {
-  constructor(text, correct, num, questNum, topicNum) {
-    this.textOfAnswer = text;
-    this.correctAnswer = correct; // true or false
-    this.numAnswerInQuest = num; // номер ответа в вопросе
-    this.numberOfQuestion = questNum; // вопроса
-    this.numberOfTopic = topicNum; // темы
-  }
-}
-
-class Answers {
-  constructor(text = [], correct = [], questNum, topicNum) {
-    this.textOfAnswer = text;
-    this.numderOfQuestion = questNum;
-    this.numberOfTopic = topicNum;
-    this.ans = [];
-    for (let i = 1; i <= 4; i++) {
-      this.ans[i] = new Answer(text[i], correct[i], i, questNum, topicNum);
-    }
+  constructor(correct, text) {
+    this.correct = correct;
+    this.text = text;
   }
 }
 
 class Question {
-  constructor(questionText, answersText, correct, questNum, topicNum) {
-    this.textOfQuestion = questionText;
-    this.ans = new Answers(answersText, correct, questNum, topicNum);
+  constructor(text, quantityOfAnswers, correct, textOfAnswer) {
+    this.text = text;
+    this.answers = [];
+    for (let i = 0; i <= quantityOfAnswers - 1; i++) this.answers[i] = new Answer(correct[i], textOfAnswer[i]);
   }
 }
 
 class Topic {
-  constructor(name, topicNum, quantityQuest, questTexts, ansTexts, correct) {
+  constructor(name, quantityOfQuestions, textsOfQuestions, quantityOfAnswers, question) {
     this.nameOfTopic = name;
-    this.numberOfTopic = topicNum;
-    this.quantityOfQuestions = quantityQuest;
-    this.textsOfQuestions = questTexts;
-    this.quests = [];
-
-    for (let i = 0; i <= quantityQuest; i++) {
-      this.quests[i] = new Question(questTexts[i], ansTexts[i], correct[i], i, topicNum);
-    }
+    this.quantityOfQuestions = quantityOfQuestions;
+    this.textsOfQuestions = textsOfQuestions;
+    this.questions = [];
+    for (let i = 0; i <= this.quantityOfQuestions - 1; i++) 
+      this.questions[i] = new Question(this.textsOfQuestions[i], quantityOfAnswers, question[i].correct, question[i].answers);
   }
 }
+
 class EducationCourse {
-  constructor(name, quanTopics, quanQuestions, topicsName, questTexts, ansTexts, correct) {
-    this.nameOfCourse = name;
-    this.quantityOfTopics = quanTopics;
-    this.quantityOfQuestions = quanQuestions;
-    this.namesOfTopics = topicsName;
+  constructor(nameOfCourse, quantityOfTopics, quantityOfQuestions, namesOfTopics, textsOfQuestions, quantityOfAnswers, answers) {
+    this.nameOfCourse = nameOfCourse;
+    this.quantityOfTopics = quantityOfTopics;
+    this.quantityOfQuestions = quantityOfQuestions;
+    this.namesOfTopics = namesOfTopics;
     this.topics = [];
-    for (let i = 0; i <= quanTopics; i++) {
-      this.topics[i] = new Topic(topicsName[i], i, quanQuestions[i], questTexts[i], ansTexts[i], correct[i]);
+    for (let i = 0; i <= quantityOfTopics - 1; i++) {
+      this.topics[i] = new Topic(this.namesOfTopics[i], this.quantityOfQuestions[i], textsOfQuestions[i], quantityOfAnswers, answers[i].questions);
     }
   }
 }
 
-const numOfQuestions = [3, 4, 4];
+const quantityOfQuestions = [3, 4, 4];
+const quantityOfAnswers = 4;
+const quantityOfTopics = 3;
+const nameOfCourse = 'Universe';
 const topicNames = ['Solar system', 'Galaxies', 'planet Earth'];
 const questionTexts = [
   ['quantity of planets', 'our natural satellite', 'biggest planet in system'],
   ['name of our galazy', 'nearest galaxy', 'what in center of galaxy', 'form of many galaxies'],
   ['how many seas on planet', 'how many mainlands', 'biggest mainland', 'where is Heops pyramid'],
 ];
+const answersOfQuestions = {
+  topics: [{
+    questions: [{
+      answers: [6, 7, 8, 9],
+      correct: [false, false, true, false],
+    },
+    {
+      answers: ['moon', 'titan', 'phoenix', 'num'],
+      correct: [true, false, false, false],
+    },
+    {
+      answers: ['earth', 'jupiter', 'saturn', 'neptun'],
+      correct: [false, true, false, false],
+    },
+    ],
+  },
+  {
+    questions: [{
+      answers: ['milky way', 'coffe break', 'time to tea', 'claster phoenix'],
+      correct: [true, false, false, false],
+    },
+    {
+      answers: ['Artemida', 'claster phoenix', 'andromeda', 'stolpy sozidaniya'],
+      correct: [false, false, true, false],
+    },
+    {
+      answers: ['orange soda', 'red line', 'lost bkbshechka', 'black hole'],
+      correct: [false, false, false, true],
+    },
+    {
+      answers: ['pyramid', 'spiral', 'cube(ice)', 'ball'],
+      correct: [false, true, false, false],
+    },
+    ],
+  },
+  {
+    questions: [{
+      answers: [69, 228, 322, 1337],
+      correct: [false, false, true, false],
+    },
+    {
+      answers: [6, 7, 8, 9],
+      correct: [true, false, false, false],
+    },
+    {
+      answers: ['Evrazia', 'north america', 'australia', 'Mozdok'],
+      correct: [true, false, false, false],
+    },
+    {
+      answers: ['North Pole', 'Sahara', 'space', 'Egypt'],
+      correct: [false, false, false, true],
+    },
+    ],
+  },
+  ],
+};
 
-const answersTexts = [
-  [['6', '7', '8', '9'], ['moon', 'titan', 'phoenix', 'num'], ['earth', 'jupiter', 'saturn', 'neptun']],
-  [['milky way', 'coffe break', 'time to tea', 'claster phoenix'], ['Artemida', 'claster phoenix', 'andromeda', 'stolpy sozidaniya'], ['orange soda', 'red line', 'lost bkbshechka', 'black hole'], ['pyramid', 'spiral', 'cube(ice)', 'ball']],
-  [['69', '228', '322', '1337'], ['6', '7', '8', '9'], ['mother Raussia(oops,Evrazia)', 'north america', 'australia', 'Mozdok'], ['on my... way', 'Mozdok', 'in cup of tea', 'Egypt']],
-];
-
-const correctAnswers = [
-  [[false, false, true, false], [true, false, false, false], [false, true, false, false]],
-  [[true, false, false, false], [false, false, true, false], [false, false, false, true], [false, true, false, false]],
-  [[false, false, true, false], [true, false, false, false], [true, false, false, false], [false, false, false, true]],
-];
-
-export const educCourse = new EducationCourse('Universe', 3, numOfQuestions, topicNames, questionTexts, answersTexts, correctAnswers);
+const educationCourse = new EducationCourse(nameOfCourse, quantityOfTopics, quantityOfQuestions, topicNames, questionTexts, quantityOfAnswers, answersOfQuestions.topics);
